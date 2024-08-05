@@ -1,0 +1,19 @@
+carriers:
+  - name: "Module Cost Delivery"
+    carrier_module_id: "MODULE_COST_DELIVERY"
+    shipping_external: 1 # [0/1] 1 - use the module to calculate the shipping cost ; 0 - use default shipping cost calculation
+  - name: "Module Cost Delivery (second)"
+    carrier_module_id: "MODULE_COST_DELIVERY_SECOND"
+    shipping_external: 1 # [0/1] 1 - use the module to calculate the shipping cost ; 0 - use default shipping cost calculation
+  - name: "Standard Delivery - Out of range: use the highest Value"
+    carrier_module_id: "STANDARD_DELIVERY_HV"
+    shipping_external: 0
+    # Below fields are applicable only if shipping_external is set to 0
+    shipping_method: 2 # [1/2] 1 - by cart items weight ; 2 - by cart items price
+    range_behavior: 0 # [0/1] if cart is out of range (weight or price): 0 - set the highest price available in this carrier ; 1 - disable the carrier
+  - name: "Standard Delivery - Out of Range: disable carrier"
+    carrier_module_id: "STANDARD_DELIVERY_DC"
+    shipping_external: 0
+    shipping_method: 2 # [1/2] 1 - by cart items weight ; 2 - by cart items price
+    range_behavior: 1 # [0/1] if cart is out of range (weight or price): 0 - set the highest price available in this carrier ; 1 - disable the carrier
+    shipping_handling: 0 # Add handling cost to the shipping cost

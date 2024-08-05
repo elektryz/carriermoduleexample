@@ -1,0 +1,6 @@
+carriers:
+  - name: "Test upgrade"
+    carrier_module_id: "CARRIER_FROM_UPGRADE"
+    shipping_external: 0
+    shipping_method: 2 # [1/2] 1 - by cart items weight ; 2 - by cart items price
+    range_behavior: 0 # [0/1] if cart is out of range (weight or price): 0 - set the highest price available in this carrier ; 1 - disable the carrier

@@ -1,0 +1,96 @@
+<style>
+    .deletedcarrier td {
+        background-color: #dac7c7 !important;
+    }
+
+    .dev-field {
+        background-color: #b3d6dc;
+    }
+</style>
+{% if dev_mode %}
+    <div class="alert alert-info">
+        <p><strong>{{ 'Warning'|trans({}, 'Modules.Carriermoduleexample.Admin') }}:</strong>
+            {{ 'DEV mode is'|trans({}, 'Modules.Carriermoduleexample.Admin') }} <strong>
+                {{ 'enabled'|trans({}, 'Modules.Carriermoduleexample.Admin') }}</strong>.</p>
+        <p>{{ 'If you want to turn off the DEV mode, please change the value of DEV_MODE variable in file'|trans({}, 'Modules.Carriermoduleexample.Admin') }}:</p>
+        <pre>/modules/carriermoduleexample/src/Configuration/ModuleConfiguration.php</pre>
+        <p>{{ 'to'|trans({}, 'Modules.Carriermoduleexample.Admin') }} false:</p>
+        <pre>public const DEV_MODE = false;</pre>
+
+    </div>
+{% endif %}
+
+{% if dev_mode and module_carriers %}
+    <div class="alert alert-danger" style="margin-bottom: 20px;">
+        <p>{{ 'You can delete carriers created by this module.'|trans({}, 'Modules.Carriermoduleexample.Admin') }}</p>
+        <p>{{ 'Do not use this mode in a store that has created shopping carts or orders with any carrier from the module.'|trans({}, 'Modules.Carriermoduleexample.Admin') }}</p>
+        <p><strong>{{ 'Please use this mode only at the stage of creating the module, before its release.'|trans({}, 'Modules.Carriermoduleexample.Admin') }}</strong></p>
+        <p>{{ 'All entries from the database for carriers that have not been used in shopping carts and orders will be removed.'|trans({}, 'Modules.Carriermoduleexample.Admin') }}</p>
+        <p>{{ 'If any carriers remain in this list after deletion, it means that you must first manually change their IDs in the database in the tables'|trans({}, 'Modules.Carriermoduleexample.Admin') }}:</p>
+        <ul>
+            <li>cart</li>
+            <li>orders</li>
+            <li>order_carrier</li>
+        </ul>
+        <p style="margin-top: 10px;">{{ 'And try again to delete the entries.'|trans({}, 'Modules.Carriermoduleexample.Admin') }}</p>
+
+        <p>{{ 'For security reasons, you should first make a copy of the entire database.'|trans({}, 'Modules.Carriermoduleexample.Admin') }}</p>
+        <div style="margin-top: 20px;">
+            <a class="btn btn-warning" href="{{ delete_url }}">
+                {{ 'I want to remove "unremoved" carriers'|trans({}, 'Modules.Carriermoduleexample.Admin') }}
+            </a>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <a class="btn btn-danger" href="{{ delete_all_url }}">
+                {{ 'I want to remove all carriers'|trans({}, 'Modules.Carriermoduleexample.Admin') }}
+            </a>
+        </div>
+    </div>
+{% endif %}
+
+{% if module_carriers %}
+    <h2 style="margin-bottom: 20px;">{{ 'Carriers created by module'|trans({}, 'Modules.Carriermoduleexample.Admin') }}</h2>
+    {% if dev_mode %}
+    <div style="display: flex;margin-bottom: 20px;">
+    <div style="width:15px;height:15px;background-color: #b3d6dc;"></div> &nbsp;&nbsp;
+        {{ 'This color shows columns visible in DEV mode only'|trans({}, 'Modules.Carriermoduleexample.Admin') }}
+    </div>
+    {% endif %}
+    <table class="table-bordered table-condensed table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>{{ 'Reference'|trans({}, 'Modules.Carriermoduleexample.Admin') }}</th>
+                <th>carrier_module_id</th>
+                <th>{{ 'Name'|trans({}, 'Modules.Carriermoduleexample.Admin') }}</th>
+                <th>{{ 'Enabled?'|trans({}, 'Modules.Carriermoduleexample.Admin') }}</th>
+
+                {% if dev_mode %}
+                    <th class="dev-field">"{{ 'Deleted'|trans({}, 'Modules.Carriermoduleexample.Admin') }}"?</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for carrier in module_carriers %}
+            <tr{% if carrier.deleted %} class="deletedcarrier"{% endif %}>
+                <td style="text-align: center;">{{ carrier.id }}</td>
+                <td style="text-align: center;">{{ carrier.id_reference }}</td>
+                <td>{{ carrier.carrier_module_id }}</td>
+                <td >{{ carrier.name }}</td>
+                <td style="text-align: center;">{% if carrier.active %}<i class="icon-check" style="color:#72c279"></i>
+                    {% else %}<i class="icon-remove" style="color: #e08f95;"></i>{% endif %}</td>
+
+                {% if dev_mode %}
+                    <td style="text-align: center;">{% if carrier.deleted %}Yes{% else %}No{% endif %}</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <div class="alert alert-info">
+        {{ 'Could not find any carrier created by module. Please install this module again.'|trans({},
+            'Modules.Carriermoduleexample.Admin') }}
+    </div>
+{% endif %}

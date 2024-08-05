@@ -1,0 +1,22 @@
+services:
+  _defaults:
+    public: true
+
+  inIT\CarrierModuleExample\Presenter\CarrierPresenter:
+    class: inIT\CarrierModuleExample\Presenter\CarrierPresenter
+    public: true
+
+  inIT\CarrierModuleExample\Handler\DeleteCarrier:
+    class: inIT\CarrierModuleExample\Handler\DeleteCarrier
+    arguments:
+      $module: '@init.carriermoduleexample.module'
+
+  inIT\CarrierModuleExample\Helper\DeleteHelper:
+    class: inIT\CarrierModuleExample\Helper\DeleteHelper
+
+  init.carriermoduleexample.module:
+    class: CarrierModuleExample
+    public: true
+    factory: [ \Module, 'getInstanceByName' ]
+    arguments:
+      - 'carriermoduleexample'
