@@ -24,7 +24,7 @@ class carriermoduleexample extends CarrierModule
     {
         $this->name = 'carriermoduleexample';
         $this->tab = 'administration';
-        $this->version = '1.1.0';
+        $this->version = '1.0.0';
         $this->author = 'inIT Kamil Góralczyk';
         $this->bootstrap = true;
 
