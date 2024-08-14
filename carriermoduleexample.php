@@ -23,7 +23,7 @@ class carriermoduleexample extends CarrierModule
     public function __construct()
     {
         $this->name = 'carriermoduleexample';
-        $this->tab = 'administration';
+        $this->tab = 'shipping_logistics';
         $this->version = '1.0.0';
         $this->author = 'inIT Kamil Góralczyk';
         $this->bootstrap = true;
