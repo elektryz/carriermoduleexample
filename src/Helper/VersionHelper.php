@@ -8,7 +8,7 @@ use inIT\CarrierModuleExample\Configuration\ModuleConfiguration;
 
 class VersionHelper
 {
-    public static function getVersionsToApply(\carriermoduleexample $module, float $installedVersion): array
+    public static function getVersionsToApply(\carriermoduleexample $module, string $installedVersion): array
     {
         $ymlFiles = array_diff(scandir(ModuleConfiguration::CARRIER_YAML_DIRECTORY_PATH), ['..', '.']);
 
@@ -32,7 +32,7 @@ class VersionHelper
     private static function findVersionsToApply(array $numbers, string $lowerLimit, string $upperLimit): array
     {
         return array_filter($numbers, function ($number) use ($lowerLimit, $upperLimit) {
-            return version_compare($number, $lowerLimit, '>') && version_compare($number, $upperLimit, '<=') ;
+            return version_compare($number, $lowerLimit, '>') && version_compare($number, $upperLimit, '<=');
         });
     }
 
