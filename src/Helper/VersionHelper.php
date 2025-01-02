@@ -16,11 +16,11 @@ class VersionHelper
             throw new \Exception('No carrier files found.');
         }
 
-        $result = array_map(function ($item) {
+        $updateVersionsFromDirectory = array_map(function ($item) {
             return str_replace('.yml', '', str_replace('_', '.', $item));
         }, $ymlFiles);
 
-        $versions = self::findVersionsToApply($result, $installedVersion, (float)$module->version);
+        $versions = self::findVersionsToApply($updateVersionsFromDirectory, $installedVersion, (string)$module->version);
 
         if (empty($versions)) {
             return [];
@@ -29,16 +29,16 @@ class VersionHelper
         return $versions;
     }
 
-    private static function findVersionsToApply(array $numbers, float $lowerLimit, float $upperLimit): array
+    private static function findVersionsToApply(array $numbers, string $lowerLimit, string $upperLimit): array
     {
         return array_filter($numbers, function ($number) use ($lowerLimit, $upperLimit) {
-            return (float)$number > $lowerLimit && (float)$number <= $upperLimit;
+            return version_compare($number, $lowerLimit, '>') && version_compare($number, $upperLimit, '<=') ;
         });
     }
 
-    public static function getInstalledVersion($module): float
+    public static function getInstalledVersion($module): string
     {
-        return (float)\Db::getInstance()->getValue(
+        return (string)\Db::getInstance()->getValue(
             'SELECT `version` 
             FROM `' . _DB_PREFIX_ . 'module` 
             WHERE `name` = "' . pSQL($module->name) . '"'
