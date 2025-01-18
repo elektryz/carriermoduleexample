@@ -11,9 +11,9 @@ use Symfony\Component\Yaml\Yaml;
 class CarrierYamlParser
 {
     private \carriermoduleexample $module;
-    private float $installedVersion;
+    private string $installedVersion;
 
-    public function __construct(\carriermoduleexample $module, float $installedVersion)
+    public function __construct(\carriermoduleexample $module, string $installedVersion)
     {
         $this->module = $module;
         $this->installedVersion = $installedVersion;
