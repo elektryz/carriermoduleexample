@@ -4,7 +4,6 @@ services:
 
   inIT\CarrierModuleExample\Presenter\CarrierPresenter:
     class: inIT\CarrierModuleExample\Presenter\CarrierPresenter
-    public: true
 
   inIT\CarrierModuleExample\Handler\DeleteCarrier:
     class: inIT\CarrierModuleExample\Handler\DeleteCarrier
